@@ -1,24 +1,31 @@
-//Create list of ints from 1 to 5, Haskell equivalent [1..5]
-function arrFunc(){
-    let arr = [];
-    for (let i = 1; i<=5; i++) {
-        arr.push(i);
-    }
-    return arr;    
+// Create list of ints from a to b (Haskell equivalent: [a..b])
+function arrFunc(a, b) {
+  const arr = [];
+  for (let i = a; i <= b; i++) {
+    arr.push(i);
+  }
+  return arr;
 }
 
-function applicatorFunc(inpFunc, s){
-    if(s=='s'){
-        const arr = inpFunc();        
-        let sum = arr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        return sum;
-    }
-    else{        
-        const arr = inpFunc();
-        let sum = arr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        return sum/5;
-    }
+// applicatorFunc takes:
+// 1) a function that returns an array
+// 2) a and b (range limits)
+// 3) a flag s deciding behaviour
+//
+// if s === 's' -> return SUM
+// otherwise -> return AVERAGE
+function applicatorFunc(inpFunc, a, b, s) {
+  const arr = inpFunc(a, b);
+
+  const sum = arr.reduce((acc, cur) => acc + cur, 0);
+
+  if (s === 's') {
+    return sum;
+  } else {
+    return sum / arr.length; // average (not hardcoded /5)
+  }
 }
 
-let x = applicatorFunc(arrFunc, 's');
-console.log(x);
+// Example calls
+console.log(applicatorFunc(arrFunc, 1, 5, 's')); // 15
+console.log(applicatorFunc(arrFunc, 1, 5, 'a')); // 3
